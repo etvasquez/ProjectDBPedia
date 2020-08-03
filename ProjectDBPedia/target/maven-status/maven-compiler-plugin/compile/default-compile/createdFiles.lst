@@ -1,0 +1,5 @@
+ec\edu\utpl\dbpedia\ProjectDBPedia\Model\ManiferoCompleto.class
+ec\edu\utpl\dbpedia\ProjectDBPedia\Controller\HomeController.class
+ec\edu\utpl\dbpedia\ProjectDBPedia\Model\Maniferos.class
+ec\edu\utpl\dbpedia\ProjectDBPedia\Controller\JuguemosController.class
+ec\edu\utpl\dbpedia\ProjectDBPedia\Consultas\consultasBDPedia.class

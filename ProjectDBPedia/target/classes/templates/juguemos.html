@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Wiki Child</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- JS, Popper.js, and jQuery
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</head>
+<body>
+    <script>
+        window.onload=function() {
+            $(".row").html($(".row .col-lg-4").sort(function(){
+                return Math.random()-0.5;
+            }));
+        }
+        function ValidarRespuesta(nombre,id) {
+            if(nombre==id){
+                $( function() {
+                    $( "#correcto" ).dialog();
+                } );
+            }else{
+                $( function() {
+                    $( "#incorrecto" ).dialog();
+                } );
+            }
+        }
+    </script>
+    <h1 style="text-align: center; color: darkslategray">¡HORA DE DIVERTIRNOS!</h1>
+    <p id="listaManiferos" th:object="${listaManiferos}"></p>
+    <h3 style="text-align: center; color: cornflowerblue">¿Cuál es el nombre nativo del siguiente animal?</h3>
+    <br><br>
+    <div class="container">
+        <div style="text-align: center">
+            <img th:attr="src=${listaManiferos.get(0).uri}" height="250px" width="250px" style="border-radius: 25%;border: 2px solid cornflowerblue">
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-lg-4">
+                <p style="text-align: center"><button th:attr="onclick=|ValidarRespuesta('${listaManiferos.get(0).nombre}',this.innerHTML)|" id="b1" type="button" class="btn btn-info" style="align-content: center" th:text="${listaManiferos.get(0).nombre}"></button></p>
+            </div>
+            <div class="col-lg-4">
+                <p style="text-align: center"><button th:attr="onclick=|ValidarRespuesta('${listaManiferos.get(0).nombre}',this.innerHTML)|" type="button" class="btn btn-info" style="align-content: center" th:text="${listaManiferos.get(1).nombre}"></button></p>
+            </div>
+            <div class="col-lg-4">
+                <p style="text-align: center"><button th:attr="onclick=|ValidarRespuesta('${listaManiferos.get(0).nombre}',this.innerHTML)|" type="button" class="btn btn-info" style="align-content: center" th:text="${listaManiferos.get(2).nombre}"></button></p>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div style="text-align: center;">
+        <button onclick="location.href='/juguemos'" type="button" class="btn btn-danger" style="align-content: center"><strong>JUGAR DE NUEVO</strong></button>
+    </div>
+    <br>
+    <div style="text-align: center;">
+        <button onclick="location.href='/'" type="button" class="btn btn-warning" style="align-content: center"><strong>ATRÁS</strong></button>
+    </div>
+    <div style="display: none" id="correcto" title="">
+        <h4 style="text-align: center">EXCELENTE!!</h4>
+        <p style="text-align: center"><img src="https://i.pinimg.com/originals/d8/19/dd/d819dda030e68cffc4c4b6b55f0b8dff.gif" alt=""></p>
+    </div>
+    <div style="display: none" id="incorrecto" title="">
+        <h4 style="text-align: center">INTENTA NUEVAMENTE!!</h4>
+        <p style="text-align: center"><img src="https://i.pinimg.com/originals/11/3f/60/113f60be580a09ef0027073423d98f0f.gif" alt=""></p>
+    </div>
+</body>
+</html>

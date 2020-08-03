@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Wiki Child</title>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <!-- JS, Popper.js, and jQuery
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</head>
+<body>
+<script>
+    function cargarDescripcion(uri,nombre) {
+        $("#descripcion").empty();
+        $("#peso").empty();
+        $("#nombre").empty();
+        $("#nombre").append(nombre);
+        var urlBase = "http://localhost:8080/";
+        var ruta = urlBase + "manifero/"+uri;
+        console.log("URI COMPLETA :"+ruta)
+        $.get(ruta,
+            function (res) {
+                document.getElementById("conte").style.display = 'block';
+                document.getElementById("con").style.display = 'block';
+                console.log(Object.keys(res));
+                console.log("Esta es descrpcion"+res.descripcion)
+                $("#descripcion").append(res.descripcion);
+                $("#peso").append(res.peso);
+                document.getElementById("img").src = res.imagen;
+            });
+    }
+</script>
+<p id="listaManiferos" th:object="${listaManiferos}"></p>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Rdf_logo.svg/250px-Rdf_logo.svg.png" alt="" height="80px" width="80px">
+            <img src="https://www.utpl.edu.ec/manual_imagen/images/institucional/UTPL-INSTITUCIONAL-FC.jpg" alt="" height="70px" width="150px">
+            <br><br>
+            <div style="overflow-y: scroll; height: 600px">
+                <table class="table table-bordered table-hover table-striped table-hidden">
+                    <thead>
+                    <tr>
+                        <th style="text-align: center">Animales Mamíferos</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="manifero : ${listaManiferos}">
+
+                        <td><a th:attr="onclick=|cargarDescripcion('${manifero.uri}','${manifero.nombre}')|" ><p th:text="${manifero.nombre}"></p></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-5" id="conte">
+            <h1 style="text-align: center; color: saddlebrown">WIKI CHILD</h1>
+            <br><br>
+            <div id="con" style="display: none">
+                <h3 style="text-transform: uppercase;text-align: center" id="nombre"></h3>
+                <p style="text-align: center"><img id="img" alt="ANIMAL MAMIFERO"/></p>
+                <h4>Descripción</h4>
+                <p id="descripcion"></p>
+                <h4>Peso</h4>
+                <p id="peso"></p>
+            </div>
+        </div>
+        <div class="col-lg-4" id="juguemos">
+            <img style="text-align: left" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRDleFlC3HrZDuhmlCgcdxTkpMzajTrwEVMRw&usqp=CAU" alt="" height="80px" width="80px">
+            <br><br>
+            <div style="text-align: center;">
+                <button onclick="location.href='/juguemos'" type="button" class="btn btn-info" style="align-content: center"><strong>JUGUEMOS!</strong></button>
+            </div>
+            <br>
+            <h5 style="text-align: center">Colaboradores</h5>
+            <br>
+            <img src="https://sica.utpl.edu.ec/media/uploads/docentes/fotos/web/low/1102809462_low.jpg" alt="" style="height: 8%;border-radius: 50%;border: 2px solid #eaab00; margin-left: 100px">
+            <p style="text-align: center"><strong>Ing. Nelson Piedra, PhD</strong><br>Departamento de Ciencias de la  Computación <br>Universidad Técnica Particular de Loja
+                <br>nopiedra@utpl.edu.ec</p>
+            <br>
+            <img src="https://scontent.fuio20-1.fna.fbcdn.net/v/t31.0-8/p960x960/18766717_1141045622705822_3092594095036962098_o.jpg?_nc_cat=100&_nc_sid=7aed08&_nc_ohc=wF38JjrGXtQAX97MgYn&_nc_ht=scontent.fuio20-1.fna&_nc_tp=6&oh=602d17da2c477a3f490f880eb7166cf8&oe=5F477883" alt="" style="height: 8%;border-radius: 50%;border: 2px solid #eaab00; margin-left: 100px">
+            <p style="text-align: center"><strong>Erika Vásquez</strong><br>Sistemas Informáticos y Computación <br>Universidad Técnica Particular de Loja
+                <br>etvasquez@utpl.edu.ec</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
